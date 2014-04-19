@@ -15,7 +15,6 @@
 
     /* --------------------------------- Event Registration -------------------------------- */
     $(window).on('hashchange', route);
-
     document.addEventListener('deviceready', function () {
 
         FastClick.attach(document.body);
