@@ -9,13 +9,13 @@ var HomeView = function(adapter, template, listItemTemplate){
 		this.el.html(template());
 		return this;
         //$('.search-key').on('keyup', findByName);
-	}
+	};
 
 	this.findByName = function(){
         adapter.findByName($('.search-key').val()).done(function (employees) {
    			$('.employee-list').html(listItemTemplate(employees));
         });
-    }
+    };
 
 	this.initialize();
 }
