@@ -2,6 +2,7 @@
 (function () {
 
     /* ---------------------------------- Local Variables ---------------------------------- */
+    var slider = new PageSlider($('body'));
     var homeTpl = Handlebars.compile($('#home-tpl').html());
     var employeeTpl = Handlebars.compile($('#employee-tpl').html());
     var employeeLiTpl = Handlebars.compile($('#employee-li-tpl').html());
@@ -35,13 +36,13 @@
     function route() {
         var hash = window.location.hash;
         if (!hash) {
-            $('body').html(new HomeView(adapter, homeTpl, employeeLiTpl).render().el);
+            slider.slidePage(new HomeView(adapter, homeTpl, employeeLiTpl).render().el);
             return;
         }
         var match = hash.match(detailsURL);
         if (match) {
             adapter.findById(Number(match[1])).done(function(employee) {
-                $('body').html(new EmployeeView(adapter, employeeTpl, employee).render().el);
+                slider.slidePage(new EmployeeView(adapter, employeeTpl, employee).render().el);
             });
         }
     }
