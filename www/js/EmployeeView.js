@@ -1,6 +1,7 @@
 var EmployeeView = function(adapter, template, employee){
 	this.initialize = function(){
 		this.el = $('<div/>');
+		this.el.on('click', '.change-pic-btn', this.changePicture);
 
 		//Add add location
 		this.el.on('click', '.add-location-btn', function(event){
@@ -34,10 +35,34 @@ var EmployeeView = function(adapter, template, employee){
 		});
 	};
 
-	this.initialize();
-
 	this.render = function(){
 		this.el.html(template(employee));
 		return this;
 	};
+
+	this.changePicture = function(){
+		event.preventDefault();
+		if(!navigator.camera){
+			alert('No existe soporte para el API de la cámara');
+		}
+		var options = {
+			quality : 50,
+			destinationType : Camera.DestinationType.DATA_URL,
+			sourceType : 1,
+			encodingType : 0
+		}
+
+		navigator.camera.getPicture(
+			function(imageData){
+				$('.employee-iamge', this.el).attr('src', 'data:image/jpeg;base64,' + imageData);
+			},
+			function(){
+				alert('Error tomando la foto', 'Error');
+			},
+			options
+		);
+		return false;
+	};
+
+	this.initialize();
 }
